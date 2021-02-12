@@ -1,17 +1,16 @@
-// External modules and aliases
+//Module set up 
 const { fetchBreedDescription } = require('./breedFetcher');
-const { log } = console;
 
-// ------------- CLI-input -------------
-const breed = process.argv[2];
-  
+//CL input
 
-// ------ Breed info handler ------
-fetchBreedDescription(breed, (error, desc) => {
+const breedName = process.argv[2];
+
+//Description fetcher
+
+fetchBreedDescription(breedName, (error, desc) => {
   if (error) {
-    log('Error:', error);
+    console.log('Error fetch details:', error);
   } else {
-    log(desc);
+    console.log(desc);
   }
-  process.exit();
 });
