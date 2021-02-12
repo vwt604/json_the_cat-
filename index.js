@@ -1,4 +1,4 @@
-//Module set up 
+//Module set up
 const { fetchBreedDescription } = require('./breedFetcher');
 
 //CL input
@@ -14,3 +14,5 @@ fetchBreedDescription(breedName, (error, desc) => {
     console.log(desc);
   }
 });
+
+//CL test input: node index.js sib
