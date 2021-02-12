@@ -24,23 +24,55 @@ const breed = process.argv[2];
 
 //Page Request
 
-const breedFetcher = function(breed) {
+const fetchBreedDescription = function(breed, callback) {
 
   request("https://api.thecatapi.com/v1/breeds/search/?q=" + breed, function(error, response, body) {
-    console.error('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    // console.log(typeof body);
 
-    //Convert JSON to object
-    const data = JSON.parse(body);
-    console.log(data[0].description);
-    // console.log(typeof data);
+    // console.error('error:', error); // Print the error if one occurred
+    // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    // // console.log(typeof body);
+    //  //Convert JSON to object
+    //  const data = JSON.parse(body);
+    //  console.log(data[0].description);
 
+    if (error) {
+      function callback(error) {
+        return error;
+      }
+      
+    }
 
+    if (response.statusCode !== 200) {
+      function callback(response) {
+        response = response.statusCode;
+        return 'Status code:' + response;
+      }
+      
+    }
+
+    let data = JSON.parse(body); 
+    if(data.length < 1) {
+      function callback(message) {
+        message = "Breed not found :("
+        return message;
+      }
+      
+    }
+    function callback (description) {
+      description = data[0].description
+      console.log (description);
+    }
     
   });
 
+  return;
+
 };
 
-breedFetcher(breed);
+fetchBreedDescription(breed);
 
+module.exports = { fetchBreedDescription };
+
+//what does the callback do? Check for error (function(error, description))
+
+//
